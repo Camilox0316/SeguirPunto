@@ -45,7 +45,7 @@ public class GUI implements ActionListener, Constantes{
         ventana.setVisible(true);
         this.dot = new Dot();
         this.target = new Target();
-        Server server = new Server(dot);
+        Server server = new Server(dot, mapa);
         Thread hilo = new Thread(server);
         hilo.start();
         run();
@@ -53,13 +53,12 @@ public class GUI implements ActionListener, Constantes{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //if(dot.currentPosition!=target.coords){
-        mapa.tablero[target.coords[X]][target.coords[Y]].clearTarget();//}
+        mapa.tablero[target.coords[X]][target.coords[Y]].clearTarget();
         ((Casilla)e.getSource()).setAsTarget();
         this.target.coords = ((Casilla)e.getSource()).getCoords();
 
         try {
-            this.client = new Socket("127.0.0.1", 9731);
+            this.client = new Socket("127.0.0.1", 9753);
             this.output = new ObjectOutputStream(client.getOutputStream());
             this.output.writeObject(target);
             this.output.flush();
@@ -73,12 +72,12 @@ public class GUI implements ActionListener, Constantes{
     public void moveDot(){
         mapa.tablero[this.dot.lastPosition[X]][this.dot.lastPosition[Y]].clearDot();
         mapa.tablero[this.dot.currentPosition[X]][this.dot.currentPosition[Y]].setAsDot();
-    
     }
 
     public void run(){
         while (true){
             this.dot.move();
+            mapa.cleanMap(dot);
             moveDot();
             try {
                 Thread.sleep(1000);

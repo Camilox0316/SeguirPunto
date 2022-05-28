@@ -20,7 +20,21 @@ public class Mapa implements Constantes{
             }
         }
     }
+    public void cleanMap(Dot d){
+        for (int row = 0; row < TABLERO_SIZE; row++){
+            for (int column = 0; column < TABLERO_SIZE; column++){
+                tablero[row][column].clearDot();
+                paintTarget(d);
+            }
+        }
+        paintDot(d);
+    }
 
+    public void paintTarget(Dot d){
+        tablero[d.target.coords[X]][d.target.coords[Y]].setAsTarget();
+    }
 
-
+    public void paintDot(Dot d){
+        tablero[d.currentPosition[X]][d.currentPosition[Y]].setAsDot();
+    }
 }

@@ -10,9 +10,10 @@ public class Server implements Runnable{
     Socket cliente;
     ObjectInputStream input;
     Dot dot, lastDot;
-
-    public Server(Dot d){
+    Mapa mapa;
+    public Server(Dot d, Mapa m){
         this.dot = d;
+        this.mapa = m;
         try {
             this.server = new ServerSocket(9731);
         } catch (Exception e) {
@@ -31,15 +32,18 @@ public class Server implements Runnable{
                 dot.lastPosition = lastDot.lastPosition;
                 dot.target = lastDot.target;
                 //dot = lastDot;
-                System.out.println("dot: "+dot.currentPosition[0]+", "+dot.currentPosition[1]);
-                System.out.println("last: "+dot.currentPosition[0]+", "+dot.currentPosition[1]);
-                
+                mapa.paintTarget(dot);
+                mapa.paintDot(dot);
+
                 this.input.close();
                 this.cliente.close();
 
             }
         } catch (Exception e) {
             //TODO: handle exception
+        }
+        finally{
+            mapa.paintDot(dot);
         }
     }
 

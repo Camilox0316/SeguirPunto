@@ -13,7 +13,7 @@ public class Server implements Runnable{
     public Server(Dot d){
         this.dot = d;
         try {
-            this.server = new ServerSocket(9731);
+            this.server = new ServerSocket(9753);
         } catch (Exception e) {
             //TODO: handle exception
         }
