@@ -11,9 +11,9 @@ public class Server implements Runnable{
     Dot dot;
 
     public Server(Dot d){
-        dot = d;
+        this.dot = d;
         try {
-            server = new ServerSocket(9731);
+            this.server = new ServerSocket(9731);
         } catch (Exception e) {
             //TODO: handle exception
         }
@@ -23,11 +23,11 @@ public class Server implements Runnable{
     public void run(){
         try {
             while(true){
-                client = server.accept();
-                input = new ObjectInputStream(client.getInputStream());
-                dot.target = (Target)input.readObject();
-                input.close();
-                client.close();
+                this.client = server.accept();
+                this.input = new ObjectInputStream(client.getInputStream());
+                this.dot.target = (Target) input.readObject();
+                this.input.close();
+                this.client.close();
             }
         } catch (Exception e) {
             //TODO: handle exception

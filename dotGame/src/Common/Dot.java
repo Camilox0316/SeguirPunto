@@ -1,5 +1,8 @@
 package Common;
-public class Dot implements Constantes{
+
+import java.io.Serializable;
+
+public class Dot implements Serializable, Constantes{
     
     public Target target;
     public int[] currentPosition;
