@@ -27,11 +27,10 @@ public class Server implements Runnable{
             while(true){
                 this.cliente = server.accept();
                 this.input = new ObjectInputStream(cliente.getInputStream());
-                this.lastDot = (Dot)input.readObject();
+                this.dot = (Dot)input.readObject();
                 dot.currentPosition=lastDot.currentPosition;
                 dot.lastPosition = lastDot.lastPosition;
                 dot.target = lastDot.target;
-                //dot = lastDot;
                 mapa.paintTarget(dot);
                 mapa.paintDot(dot);
 
